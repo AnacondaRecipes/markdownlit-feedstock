@@ -1,0 +1,56 @@
+{% set name = "markdownlit" %}
+{% set version = "0.0.7" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 553e2db454e2be4567caebef5176c98a40a7e24f7ea9c2fe8a1f05c1d9ea4005
+
+build:
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+  # s390x is missing streamlit
+  skip: true  # [py<36 or s390x]
+
+requirements:
+  host:
+    - python
+    - setuptools
+    - pip
+    - wheel
+  run:
+    - python
+    - streamlit
+    - streamlit-extras
+    - htbuilder
+    - markdown
+    - lxml
+    - favicon
+    - pymdown-extensions
+
+test:
+  imports:
+    - markdownlit
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/arnaudmiribel/markdownlit
+  dev_url: https://github.com/arnaudmiribel/markdownlit
+  doc_url: https://github.com/arnaudmiribel/markdownlit/blob/main/README.md
+  summary: markdownlit adds a couple of lit Markdown capabilities to your Streamlit apps
+  description: |
+    markdownlit gives you a couple of lit additional Markdown commands for your Streamlit apps! 
+    It is built upon the Python-Markdown/markdown project.
+  license: Apache-2.0
+  license_file: LICENSE
+  license_family: Apache
+
+extra:
+  recipe-maintainers:
+    - ELundby45

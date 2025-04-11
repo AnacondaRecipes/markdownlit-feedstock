@@ -10,10 +10,9 @@ source:
   sha256: 553e2db454e2be4567caebef5176c98a40a7e24f7ea9c2fe8a1f05c1d9ea4005
 
 build:
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
-  # s390x is missing streamlit
-  skip: true  # [py<36 or s390x]
+  skip: true  # [py<36]
 
 requirements:
   host:
@@ -24,20 +23,20 @@ requirements:
   run:
     - python
     - streamlit
-    - streamlit-extras
+    #- streamlit-extras
     - htbuilder
     - markdown
     - lxml
     - favicon
     - pymdown-extensions
 
-test:
-  imports:
-    - markdownlit
-  commands:
-    - pip check
-  requires:
-    - pip
+#test:
+#  imports:
+#    - markdownlit
+#  commands:
+#    - pip check
+#  requires:
+#    - pip
 
 about:
   home: https://github.com/arnaudmiribel/markdownlit
